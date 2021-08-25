@@ -19,6 +19,10 @@ namespace TP1_2021.Controllers
         {
             return View();
         }
+        public int problemOne(int a, int b)
+        {
+            return a - b;
+        }
         public IActionResult Problema1()
         {
 
