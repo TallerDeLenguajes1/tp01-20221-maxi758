@@ -18,10 +18,12 @@ namespace TP1_2021.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _logger.LogDebug(1, "NLog injected into HomeController");
         }
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Hello, this is the index!");
             return View();
         }
         public int problemOne(int a, int b)
@@ -45,6 +47,7 @@ namespace TP1_2021.Controllers
             }
             catch (FormatException fe)
             {
+                _logger.LogError(fe.ToString());
                 return $"Error: {fe.Message}";
             }
                        
