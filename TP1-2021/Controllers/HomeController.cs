@@ -82,6 +82,7 @@ namespace TP1_2021.Controllers
                     }
                     catch (Exception ex)
                     {
+                        _logger.LogError(ex.ToString());
                         return $"Error al procesar datos /n {ex.Message}";
                     }
 
@@ -122,6 +123,7 @@ namespace TP1_2021.Controllers
                     }
                     catch (Exception ex)
                     {
+                        _logger.LogError(ex.ToString());
                         return $"Error al procesar los datos /n {ex.Message}";
                     }
                 }
@@ -139,7 +141,21 @@ namespace TP1_2021.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public static string Get()
+        public string Problema3()
+        {
+            string listadoProvincias = "";
+            try
+            {
+                listadoProvincias += getProvincias();
+                return listadoProvincias;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return $"Error: {ex.Message}";
+            }
+        }
+        public static string getProvincias()
         {
             var url = $"https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre";
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -161,7 +177,7 @@ namespace TP1_2021.Controllers
                                 provinciasArgentina ListProvincias = JsonSerializer.Deserialize<provinciasArgentina>(responseBody);
                                 foreach (provincia prov in ListProvincias.Provincias)
                                 {
-                                    cadena += $"id : {prov.Id}, nombre : {prov.Nombre} \r\n ";
+                                    cadena += $"\t id : {prov.Id}, nombre : {prov.Nombre} \n ";
                                 }
                             }
                         }
@@ -172,7 +188,6 @@ namespace TP1_2021.Controllers
             }
             catch (Exception ex)
             {
-
                 return $"Error {ex.Message}";
             }
             
