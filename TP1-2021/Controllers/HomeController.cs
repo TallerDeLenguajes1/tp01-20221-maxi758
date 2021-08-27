@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using TP1_2021.Models;
 
 namespace TP1_2021.Controllers
@@ -53,23 +54,71 @@ namespace TP1_2021.Controllers
         [HttpPost]
         public string Problema2Result(string num1, string num2)
         {
-            try
+            decimal valor1, valor2;
+           
+            if (!Decimal.TryParse(num1, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out valor1) || 
+                !Decimal.TryParse(num2, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out valor2))
             {
-                double valor1 = Convert.ToDouble(num1);
-                double valor2 = Convert.ToDouble(num2);
-                return $"El resultado de {valor1} dividido en {valor2} es: {valor1/valor2}";
-
+                return "Error al ingresar los datos";
             }
-            catch (FormatException fe)
+            else if(valor2==0)
             {
-                return $"Error: {fe.Message}";
+                return "No es posible dividir en cero";
             }
-            catch (DivideByZeroException ze)
+                else
+                {
+                    try
+                    {
+
+                        return $"El resultado de {valor1} dividido en {valor2} es: {Math.Round(valor1 / valor2),4}";
+
+                    }
+                    catch (Exception ex)
+                    {
+                        return $"Error al procesar datos /n {ex.Message}";
+                    }
+
+                }
+
+
+
+        }
+        public IActionResult Problema4()
+        {
+
+            return View();
+
+        }
+        [HttpPost]
+        public string Problema4Result(string num1, string num2)
+        {
+            double valor1, valor2;
+
+            if (!Double.TryParse(num1, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out valor1) ||
+                !Double.TryParse(num2, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out valor2))
             {
-                return $"Error: {ze.Message}";
+                return "Error al ingresar los datos";
             }
+            else if (valor2 == 0)
+            {
+                return "No es posible dividir en cero";
+            }
+                else
+                {
+                    try
+                    {
 
+                        return $"El rendimiento es de {Math.Round((valor1 / valor2), 4)} Km/L";
 
+                    }
+                    catch (Exception ex)
+                    {
+                        return $"Error al procesar los datos /n {ex.Message}";
+                    }
+                }
+            
+
+            
         }
         public IActionResult Privacy()
         {

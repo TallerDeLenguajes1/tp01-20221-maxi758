@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Problema 4";
+    Layout = "_Layout";
+}
+
+<form asp-action="Problema4Result" method="post">
+    <div class="mb-3">
+        <label for="num1">Ingrese la cantidad de Km recorridos</label>
+        <input type="text" name="num1" placeholder="Km recorridos" />
+    </div>
+    <div class="mb-3">
+        <label for="num2">Ingrese la cantidad de  litros consumidos</label>
+        <input type="text" name="num2" placeholder="Litros consumidos" />
+    </div>
+    <button class="btn-primary" type="submit">Enviar</button>
+</form>
